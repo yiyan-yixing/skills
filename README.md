@@ -1,6 +1,6 @@
 # skills
 
-> Claude Code 技能集合 — 一人公司 9 角色代理 + 25 个精选技能，标准 `.claude/` 格式。
+> Claude Code 技能集合 — 一人公司 10 角色代理 + 26 个精选技能 + 三层记忆 + 协作白板 + 质疑协议，标准 `.claude/` 格式。
 
 ## 目录结构
 
@@ -11,20 +11,35 @@ skills/
 │   ├── pm-prd-writing/        #   产品 PRD
 │   ├── designer-rapid-prototype/ # 设计师快速原型
 │   ├── devops-fast-pipeline/  #   极速交付流水线
-│   ├── data-metrics-setup/    #   数据指标体系搭建
-│   └── ...                    #   共 25 个技能
+│   ├── architect-tech-radar/  #   架构师技术雷达 ✨
+│   └── ...                    #   共 26 个技能
 │
 ├── agents/                    # 角色子代理（通过 @角色名 调用）
 │   ├── ceo.md                 #   CEO / 首席执行官
 │   ├── pm.md                  #   产品经理
-│   ├── designer.md            #   产品设计师 ✨
+│   ├── designer.md            #   产品设计师
+│   ├── architect.md           #   技术架构师 ✨
 │   ├── dev.md                 #   开发者
 │   ├── qa.md                  #   测试
-│   ├── devops.md              #   开发工具链 / DevOps ✨
+│   ├── devops.md              #   开发工具链 / DevOps
 │   ├── ops.md                 #   运营
-│   ├── data.md                #   数据分析师 ✨
+│   ├── data.md                #   数据分析师
 │   ├── fin.md                 #   财务
-│   └── WORKFLOW.md            #   产品闭环协作流程 ✨
+│   ├── WORKFLOW.md            #   产品闭环 DAG 流程 ✨
+│   └── challenge-protocol.md  #   质疑协议 ✨
+│
+└── .claude/                   # Claude Code 运行时结构
+    ├── CLAUDE.md              #   主入口，@import core 记忆 ✨
+    ├── memory/                #   三层记忆系统 ✨
+    │   ├── core/              #     常驻记忆（每 session 加载）
+    │   ├── archival/          #     长期记忆（按需读取）
+    │   └── recall/            #     历史会话（按需检索）
+    ├── blackboard/            #   Agent 共享白板 ✨
+    │   ├── current-sprint.md  #     当前迭代状态
+    │   ├── open-questions.md  #     待解决问题
+    │   ├── challenges.md      #     质疑记录
+    │   └── decisions-log.md   #     决策日志
+    └── evals/                 #   效果评估体系 ✨
 ```
 
 ---
@@ -111,7 +126,7 @@ your-project/
 
 ---
 
-## 角色子代理（9 个）
+## 角色子代理（10 个）
 
 通过 `@角色名` 调用，每个角色拥有完整的职责、KPI、决策权限和可用技能。
 
@@ -140,7 +155,8 @@ your-project/
 | **CEO** | `@ceo` | 战略方向、重大决策、全局监控 | 10% | 周回顾、决策框架、季度规划、愿景校准 |
 | **产品经理** | `@pm` | 做用户真正需要的产品 | 15% | 需求排序、PRD、MVP 范围、反馈闭环 |
 | **设计师** | `@designer` | 用最短时间把想法变成可感知的界面 | 15% | 快速原型、前端设计 |
-| **开发者** | `@dev` | 高质量可持续地交付代码 | 25% | 代码自审、架构决策、Bug 诊断、发布检查 |
+| **架构师** | `@architect` | 做正确的技术选型，防止架构债务 | 5% | 架构决策记录、技术雷达 |
+| **开发者** | `@dev` | 高质量可持续地交付代码 | 20% | 代码自审、Bug 诊断、发布检查 |
 | **DevOps** | `@devops` | 极致快速的开发工具链 | 10% | 极速交付流水线 |
 | **测试** | `@qa` | 不让 bug 流入生产环境 | 5% | 用例设计、边界测试、回归验证 |
 | **运营** | `@ops` | 让产品被需要的人看到 | 10% | 内容日历、社交发布、增长实验 |
@@ -174,9 +190,9 @@ your-project/
 
 ---
 
-## 技能一览（25 个）
+## 技能一览（26 个）
 
-### 🏢 一人公司角色技能（20 个）
+### 🏢 一人公司角色技能（21 个）
 
 | 角色 | 技能 | 触发时机 | 时间盒 |
 |------|------|----------|--------|
@@ -190,9 +206,10 @@ your-project/
 | | `pm-user-feedback-loop` | 收到反馈时 | 15min |
 | **设计师** | `designer-rapid-prototype` | 出 Demo 时 | 3天 |
 | **开发者** | `dev-code-review-self` | 每次 commit | 10min |
-| | `dev-architecture-decision` | 技术选型时 | 30min |
 | | `dev-debug-triage` | 发现 bug 时 | 15min |
 | | `dev-release-checklist` | 准备发布时 | 20min |
+| **架构师** | `dev-architecture-decision` | 技术选型时 | 30min |
+| | `architect-tech-radar` | 每月 | 15min |
 | **DevOps** | `devops-fast-pipeline` | 搭建流水线时 | 60min |
 | **运营** | `ops-content-calendar` | 每周 | 30min |
 | | `ops-social-publish` | 每天 | 15min |
@@ -223,7 +240,7 @@ your-project/
 > AI Agent 赛道铁律：没有 Demo 就没有对话。
 
 ```
-Day 1: @pm 定场景 + @designer 画关键流程 → 1 页 PRD + 交互原型
+Day 1: @pm 定场景 + @architect 确认可行性 + @designer 画关键流程 → PRD + 交互原型 + 架构方案
 Day 2: @dev 快速实现 + @designer UI 走查 → 可运行 Demo
 Day 3: @devops 一键部署 + @ops 推给 10 人看 + @data 开始采集 → 反馈+数据
 ```
@@ -252,6 +269,7 @@ Day 3: @devops 一键部署 + @ops 推给 10 人看 + @data 开始采集 → 反
 @designer 3天出一个Demo
 @dev 实现用户登录功能
 @qa 测试登录的各种边界情况
+@architect 做技术选型评审
 @devops 搭建CI/CD流水线
 @ops 规划下周内容日历
 @data 搭建数据采集体系
@@ -268,8 +286,35 @@ Day 3: @devops 一键部署 + @ops 推给 10 人看 + @data 开始采集 → 反
 - **极速交付**：3 天出 Demo、10 分钟部署上线、一周一个迭代
 - **时间盒驱动**：一人公司技能每个都有时间限制，防止完美主义
 - **可量化**：KPI 和成功标准都是具体数字，不是"感觉还行"
-- **防自欺**：每个角色列出常见错误和反模式
+- **防自欺**：每个角色列出常见错误和反模式；质疑协议让 Agent 互相挑战
 - **工欲善其事**：DevOps 角色专门负责"先利其器"，让开发工具链极致快速
+
+---
+
+## 三层记忆系统
+
+| 层级 | 路径 | 加载方式 | 内容 |
+|------|------|----------|------|
+| **Core（常驻）** | `.claude/memory/core/` | CLAUDE.md @import，每 session 自动加载 | 技术栈、架构决策、项目上下文 |
+| **Archival（长期）** | `.claude/memory/archival/` | Agent 需要时用 Read 读取 | 决策归档、经验教训、用户调研 |
+| **Recall（历史）** | `.claude/memory/recall/` | Auto Memory / 会话摘要 | 历史对话、自动学习 |
+
+## 共享白板
+
+| 文件 | 用途 | 维护者 |
+|------|------|--------|
+| `.claude/blackboard/current-sprint.md` | 当前迭代目标、任务分配、进度 | @pm |
+| `.claude/blackboard/open-questions.md` | 待解决问题 | 任何 Agent |
+| `.claude/blackboard/challenges.md` | 质疑记录 | 协调者 |
+| `.claude/blackboard/decisions-log.md` | 决策日志索引 | @ceo / @architect |
+
+## 质疑协议
+
+PM 出 PRD → Dev 质疑技术可行性 + Data 质疑指标可量化
+Dev 出技术方案 → Architect 质疑架构合理性
+CEO 做重大决策 → Data 质疑数据支撑
+
+详见 `agents/challenge-protocol.md`。
 
 ## License
 
