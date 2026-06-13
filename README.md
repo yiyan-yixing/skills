@@ -29,7 +29,7 @@ skills/
 ### 安装全部
 
 ```bash
-npx skills install https://github.com/yiyan-yixing/skills.git --agent claude-code
+npx skills add https://github.com/yiyan-yixing/skills.git --agent claude-code -y
 ```
 
 会将 `skills/` 和 `agents/` 全部安装到当前目录的 `.claude/` 下。
@@ -37,22 +37,45 @@ npx skills install https://github.com/yiyan-yixing/skills.git --agent claude-cod
 ### 安装单个技能
 
 ```bash
-npx skills install https://github.com/yiyan-yixing/skills.git -s frontend-design --agent claude-code
+npx skills add https://github.com/yiyan-yixing/skills.git -s frontend-design --agent claude-code -y
 ```
 
 也支持同时安装多个技能：
 
 ```bash
-npx skills install https://github.com/yiyan-yixing/skills.git -s frontend-design -s skill-creator --agent claude-code
+npx skills add https://github.com/yiyan-yixing/skills.git -s frontend-design -s skill-creator --agent claude-code -y
 ```
 
 ### 参数说明
 
 | 参数 | 说明 |
 |------|------|
-| `install <repo-url>` | 后接 Git 仓库地址，指定技能来源 |
+| `add <repo-url>` | 后接 Git 仓库地址，指定技能来源 |
 | `-s <skill-name>` | 安装指定技能，可多次使用；不带则安装全部 |
-| `--agent claude-code` | 指定目标 Agent 类型，决定安装到哪个目录 |
+| `-a, --agent claude-code` | 指定目标 Agent 类型，安装到 `.claude/skills/` 目录 |
+| `-y` | 跳过确认提示，非交互式安装 |
+| `--copy` | 复制文件而非创建符号链接 |
+| `--all` | 等同于 `--skill '*' --agent '*' -y`，安装全部到全部 Agent |
+
+### 更新
+
+```bash
+npx skills update -y
+```
+
+### 查看已安装
+
+```bash
+npx skills list              # 项目级
+npx skills list -g           # 全局
+npx skills list -a claude-code   # 按 Agent 筛选
+```
+
+### 移除
+
+```bash
+npx skills remove <skill-name>
+```
 
 ### 安装完成后
 
