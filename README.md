@@ -1,5 +1,7 @@
 # skills
 
+**[English](./README_EN.md)** | 中文
+
 > Claude Code 技能集合 — 一人公司 10 角色代理 + 26 个精选技能 + 三层记忆 + 协作白板 + 质疑协议，标准 `.claude/` 格式。
 
 ## 30 秒上手
