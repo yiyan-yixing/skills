@@ -39,44 +39,72 @@ claude
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-### 安装后的目录结构
+### 仓库目录结构（源码）
 
 ```
-skills/
-├── skills/                    # 技能（标准 SKILL.md 格式）
-│   ├── ceo-weekly-review/     #   CEO 周回顾
-│   ├── pm-prd-writing/        #   产品 PRD
-│   ├── designer-rapid-prototype/ # 设计师快速原型
-│   ├── devops-fast-pipeline/  #   极速交付流水线
-│   ├── architect-tech-radar/  #   架构师技术雷达 ✨
-│   └── ...                    #   共 26 个技能
+skills/                         # 仓库根目录
+├── skills/                     #   技能（标准 SKILL.md 格式）
+│   ├── ceo-weekly-review/      #     CEO 周回顾
+│   ├── pm-prd-writing/         #     产品 PRD
+│   ├── designer-rapid-prototype/ #   设计师快速原型
+│   ├── devops-fast-pipeline/   #     极速交付流水线
+│   ├── architect-tech-radar/   #     架构师技术雷达 ✨
+│   └── ...                     #     共 26 个技能
 │
-├── agents/                    # 角色子代理（通过 @角色名 调用）
-│   ├── ceo.md                 #   CEO / 首席执行官
-│   ├── pm.md                  #   产品经理
-│   ├── designer.md            #   产品设计师
-│   ├── architect.md           #   技术架构师 ✨
-│   ├── dev.md                 #   开发者
-│   ├── qa.md                  #   测试
-│   ├── devops.md              #   开发工具链 / DevOps
-│   ├── ops.md                 #   运营
-│   ├── data.md                #   数据分析师
-│   ├── fin.md                 #   财务
-│   ├── WORKFLOW.md            #   产品闭环 DAG 流程 ✨
-│   └── challenge-protocol.md  #   质疑协议 ✨
+├── agents/                     #   角色子代理（通过 @角色名 调用）
+│   ├── ceo.md                  #     CEO / 首席执行官
+│   ├── pm.md                   #     产品经理
+│   ├── designer.md             #     产品设计师
+│   ├── architect.md            #     技术架构师 ✨
+│   ├── dev.md                  #     开发者
+│   ├── qa.md                   #     测试
+│   ├── devops.md               #     开发工具链 / DevOps
+│   ├── ops.md                  #     运营
+│   ├── data.md                 #     数据分析师
+│   ├── fin.md                  #     财务
+│   ├── WORKFLOW.md             #     产品闭环 DAG 流程 ✨
+│   └── challenge-protocol.md   #     质疑协议 ✨
 │
-└── .claude/                   # Claude Code 运行时结构
-    ├── CLAUDE.md              #   主入口，@import core 记忆 ✨
-    ├── memory/                #   三层记忆系统 ✨
-    │   ├── core/              #     常驻记忆（每 session 加载）
-    │   ├── archival/          #     长期记忆（按需读取）
-    │   └── recall/            #     历史会话（按需检索）
-    ├── blackboard/            #   Agent 共享白板 ✨
-    │   ├── current-sprint.md  #     当前迭代状态
-    │   ├── open-questions.md  #     待解决问题
-    │   ├── challenges.md      #     质疑记录
-    │   └── decisions-log.md   #     决策日志
-    └── evals/                 #   效果评估体系 ✨
+├── memory/                     #   三层记忆系统 ✨
+│   ├── core/                   #     常驻记忆（每 session 加载）
+│   │   ├── tech-stack.md       #       技术栈
+│   │   ├── architecture.md     #       架构决策
+│   │   └── project-context.md  #       项目上下文
+│   ├── archival/               #     长期记忆（按需读取）
+│   │   ├── decisions/          #       决策归档
+│   │   ├── lessons/            #       经验教训
+│   │   └── user-research/      #       用户调研
+│   └── recall/                 #     历史会话（按需检索）
+│
+├── blackboard/                 #   Agent 共享白板 ✨
+│   ├── current-sprint.md       #     当前迭代状态
+│   ├── open-questions.md       #     待解决问题
+│   ├── challenges.md           #     质疑记录
+│   └── decisions-log.md        #     决策日志
+│
+├── evals/                      #   效果评估体系 ✨
+│   └── README.md               #     8 维度评估框架
+│
+├── CLAUDE.md.template          #   记忆入口模板 ✨
+├── install.sh                  #   一键安装脚本
+└── init.sh                     #   交互式初始化脚本
+```
+
+### 安装后的用户项目结构
+
+```
+your-project/
+└── .claude/                    # Claude Code 自动发现
+    ├── skills/                 #   26 个 Skills
+    ├── agents/                 #   10 个 Agent + WORKFLOW + 质疑协议
+    ├── memory/                 #   三层记忆系统
+    │   ├── core/               #     （init.sh 写入你的公司信息）
+    │   ├── archival/           #     决策归档、经验教训
+    │   └── recall/             #     历史会话
+    ├── blackboard/             #   共享白板
+    ├── evals/                  #   效果评估体系
+    ├── CLAUDE.md               #   记忆入口 (@import core)
+    └── init.sh                 #   初始化脚本
 ```
 
 ---
@@ -173,27 +201,17 @@ npx skills remove <skill-name>
 
 ```
 your-project/
-└── .claude/
-    ├── skills/                 ← 技能（Claude Code 自动发现）
-    │   ├── ceo-weekly-review/
-    │   ├── designer-rapid-prototype/
-    │   ├── devops-fast-pipeline/
-    │   ├── data-metrics-setup/
-    │   └── ...
-    │
-    └── agents/                 ← 角色子代理（通过 @角色名 调用）
-        ├── ceo.md
-        ├── pm.md
-        ├── designer.md
-        ├── dev.md
-        ├── qa.md
-        ├── devops.md
-        ├── ops.md
-        ├── data.md
-        ├── fin.md
-        └── WORKFLOW.md         ← 产品闭环协作流程
-    
-    └── init.sh                 ← 交互式初始化脚本（设置公司信息）
+└── .claude/                        ← Claude Code 自动发现
+    ├── skills/                     ← 26 个技能
+    ├── agents/                     ← 10 个角色子代理（@角色名 调用）
+    ├── memory/                     ← 三层记忆系统
+    │   ├── core/                   ←   init.sh 写入你的公司信息
+    │   ├── archival/               ←   决策归档、经验教训
+    │   └── recall/                 ←   历史会话
+    ├── blackboard/                 ← 共享白板
+    ├── evals/                      ← 效果评估体系
+    ├── CLAUDE.md                   ← 记忆入口 (@import core)
+    └── init.sh                     ← 初始化脚本
 ```
 
 > Claude Code 自动发现 `.claude/skills/` 和 `.claude/agents/`，无需额外配置。
