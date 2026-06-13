@@ -2,19 +2,22 @@
 # 一人公司 Agent 体系一键安装脚本
 # 用法: curl -fsSL https://raw.githubusercontent.com/yiyan-yixing/skills/main/install.sh | bash
 # 或者: git clone https://github.com/yiyan-yixing/skills.git && cd skills && bash install.sh /path/to/project
+# 或者: bash install.sh /path/to/project --skip-init
 
 set -e
 
 REPO_URL="https://github.com/yiyan-yixing/skills.git"
 CLONE_DIR=$(mktemp -d)
-TARGET_DIR="${1:-.}"
-SKIP_INIT="${SKIP_INIT:-}"
+TARGET_DIR="."
+SKIP_INIT=""
 
-# 解析参数
-for arg in "$@"; do
-  case "$arg" in
-    --skip-init) SKIP_INIT="1" ;;
-    --init) SKIP_INIT="" ;;
+# ─── 解析参数 ───
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --skip-init) SKIP_INIT="1"; shift ;;
+    --init) SKIP_INIT=""; shift ;;
+    -*) echo "未知参数: $1"; shift ;;
+    *) TARGET_DIR="$1"; shift ;;
   esac
 done
 
