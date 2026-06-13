@@ -46,15 +46,31 @@ skills/
 
 ## 安装
 
-### 安装全部
+### 一键安装（推荐）
+
+安装 Skills + Agents + 记忆系统 + 白板 + 评估体系 + CLAUDE.md 全部内容：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/yiyan-yixing/skills/main/install.sh | bash
+```
+
+或克隆后本地安装：
+
+```bash
+git clone https://github.com/yiyan-yixing/skills.git
+cd skills && bash install.sh /path/to/your/project
+```
+
+### 仅安装 Skills
+
+> ⚠️ `npx skills add` 只安装 skills/ 目录，**不会安装** agents/、记忆系统、白板、评估体系。
+> 如果需要完整体系，请使用上面的一键安装脚本。
 
 ```bash
 npx skills add https://github.com/yiyan-yixing/skills.git --agent claude-code -y
 ```
 
-会将 `skills/` 和 `agents/` 全部安装到当前目录的 `.claude/` 下。
-
-### 安装单个技能
+### 仅安装单个技能
 
 ```bash
 npx skills add https://github.com/yiyan-yixing/skills.git -s frontend-design --agent claude-code -y
