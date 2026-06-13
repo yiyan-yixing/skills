@@ -8,6 +8,15 @@ set -e
 REPO_URL="https://github.com/yiyan-yixing/skills.git"
 CLONE_DIR=$(mktemp -d)
 TARGET_DIR="${1:-.}"
+SKIP_INIT="${SKIP_INIT:-}"
+# --init flag: 安装后自动初始化
+if echo "$@" | grep -q '\-\-init'; then
+  SKIP_INIT=""
+  shift 2>/dev/null || true
+elif echo "$@" | grep -q '\-\-skip-init'; then
+  SKIP_INIT="1"
+  shift 2>/dev/null || true
+fi
 
 echo "🏢 一人公司 Agent 体系安装"
 echo "============================"
@@ -88,6 +97,18 @@ elif [ -f "$CLONE_DIR/skills/.claude/CLAUDE.md" ]; then
   echo "   ✅ CLAUDE.md (记忆入口)"
 fi
 
+# Step 5: 安装 init.sh
+echo "🚀 [5/5] 安装初始化脚本..."
+if [ -f "$CLONE_DIR/init.sh" ]; then
+  cp "$CLONE_DIR/init.sh" .claude/init.sh
+  chmod +x .claude/init.sh
+  echo "   ✅ init.sh (交互式初始化)"
+elif [ -f "$CLONE_DIR/skills/init.sh" ]; then
+  cp "$CLONE_DIR/skills/init.sh" .claude/init.sh
+  chmod +x .claude/init.sh
+  echo "   ✅ init.sh (交互式初始化)"
+fi
+
 # 清理临时目录
 if [ "$CLONE_DIR" != "$(pwd)/skills" ]; then
   rm -rf "$CLONE_DIR"
@@ -103,8 +124,20 @@ echo "  .claude/memory/        — 三层记忆系统 (core + archival + recall)
 echo "  .claude/blackboard/    — 共享白板 (4 个文件)"
 echo "  .claude/evals/         — 效果评估体系"
 echo "  .claude/CLAUDE.md      — 记忆入口 (@import core)"
+echo "  .claude/init.sh        — 交互式初始化脚本"
 echo ""
-echo "下一步："
-echo "  1. 打开 Claude Code，输入 @ceo 开始使用"
-echo "  2. 编辑 .claude/memory/core/project-context.md 填入你的公司信息"
-echo "  3. 编辑 .claude/memory/core/tech-stack.md 填入你的技术栈"
+
+# Step 6: 自动初始化（非 --skip-init 时）
+if [ -z "$SKIP_INIT" ] && [ -f ".claude/init.sh" ]; then
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "⚡ 现在运行初始化，设置你的公司信息"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  bash .claude/init.sh
+else
+  echo "下一步："
+  echo "  1. 运行 bash .claude/init.sh 初始化你的公司信息"
+  echo "  2. 打开 Claude Code，输入 @ceo 开始使用"
+  echo "  3. 编辑 .claude/memory/core/project-context.md 填入你的公司信息"
+  echo "  4. 编辑 .claude/memory/core/tech-stack.md 填入你的技术栈"
+fi

@@ -2,7 +2,44 @@
 
 > Claude Code 技能集合 — 一人公司 10 角色代理 + 26 个精选技能 + 三层记忆 + 协作白板 + 质疑协议，标准 `.claude/` 格式。
 
-## 目录结构
+## 30 秒上手
+
+```bash
+# 1. 创建新项目
+mkdir my-ai-product && cd my-ai-product
+
+# 2. 一键安装 + 自动初始化（回答几个问题，框架就是你的了）
+curl -fsSL https://raw.githubusercontent.com/yiyan-yixing/skills/main/install.sh | bash
+
+# 3. 启动 Claude Code，你的公司已就绪
+claude
+@ceo 帮我做一个季度规划
+```
+
+> 🎯 安装完成后，你将拥有：10 个 Agent 角色、26 个技能、三层记忆系统、共享白板、质疑协议 — 一家完整的一人公司框架，随时开工。
+
+### 用户旅程
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  mkdir my-project && cd my-project                               │
+│                                                                  │
+│  ┌───────────┐    ┌──────────────┐    ┌────────────────────────┐ │
+│  │  安装框架  │──→│  初始化公司   │──→│     开工！             │ │
+│  │ install.sh│    │  init.sh     │    │  @ceo 做季度规划       │ │
+│  │           │    │              │    │  @pm 定义第一个需求    │ │
+│  │ 拿到空壳  │    │  填入公司名   │    │  @designer 3天出Demo  │ │
+│  │ 10角色    │    │  方向、用户   │    │  @dev 开发            │ │
+│  │ 26技能    │    │  假设、技术栈 │    │  @data 收集效果数据   │ │
+│  │ 记忆系统  │    │              │    │  @pm 决策迭代          │ │
+│  └───────────┘    └──────────────┘    └────────────────────────┘ │
+│                                                                  │
+│  install.sh 安装结构    init.sh 个性化       Claude Code 开工    │
+│  (3 分钟)              (2 分钟)             (立刻)              │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### 安装后的目录结构
 
 ```
 skills/
@@ -48,7 +85,7 @@ skills/
 
 ### 一键安装（推荐）
 
-安装 Skills + Agents + 记忆系统 + 白板 + 评估体系 + CLAUDE.md 全部内容：
+安装 Skills + Agents + 记忆系统 + 白板 + 评估体系 + CLAUDE.md + **自动初始化**：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/yiyan-yixing/skills/main/install.sh | bash
@@ -59,6 +96,25 @@ curl -fsSL https://raw.githubusercontent.com/yiyan-yixing/skills/main/install.sh
 ```bash
 git clone https://github.com/yiyan-yixing/skills.git
 cd skills && bash install.sh /path/to/your/project
+```
+
+#### 安装参数
+
+| 参数 | 说明 |
+|------|------|
+| `--init` | 安装后自动运行初始化（回答几个问题，一键把框架变成你的公司） |
+| `--skip-init` | 只安装框架，跳过初始化（稍后手动运行 `bash .claude/init.sh`） |
+| 无参数 | **默认行为**：安装后自动初始化（同 `--init`） |
+
+```bash
+# 只装框架，稍后手动初始化
+bash install.sh /path/to/project --skip-init
+
+# 非交互模式初始化（适合 CI/自动化）
+COMPANY_NAME="我的公司" DIRECTION="AI Agent" TARGET_USER="运营人员" \
+  HYPOTHESIS="市场需要AI自动化运营" ADVANTAGE="AI Agent技术" \
+  PRODUCT_POSITIONING="AI运营自动化SaaS" \
+  bash .claude/init.sh
 ```
 
 ### 仅安装 Skills
@@ -136,6 +192,8 @@ your-project/
         ├── data.md
         ├── fin.md
         └── WORKFLOW.md         ← 产品闭环协作流程
+    
+    └── init.sh                 ← 交互式初始化脚本（设置公司信息）
 ```
 
 > Claude Code 自动发现 `.claude/skills/` 和 `.claude/agents/`，无需额外配置。
