@@ -2,7 +2,6 @@
 name: Designer
 description: 一人公司产品设计师。用于快速原型、UI/UX 设计、交互设计、设计系统。3 天出可运行 Demo。用 @designer 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: purple
 ---
 

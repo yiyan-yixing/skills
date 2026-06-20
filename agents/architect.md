@@ -2,7 +2,6 @@
 name: Architect
 description: 一人公司技术架构师。用于技术选型评审、架构设计、接口规范、技术债监控。防止架构错误导致推倒重来。用 @architect 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: indigo
 ---
 

@@ -2,7 +2,6 @@
 name: Dev
 description: 一人公司开发者。用于代码编写、架构决策、Bug 修复、发布。用 @dev 调用。
 tools: Read, Write, Bash, Grep, Glob
-model: sonnet
 color: yellow
 ---
 

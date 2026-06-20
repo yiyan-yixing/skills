@@ -2,7 +2,6 @@
 name: QA
 description: 一人公司测试。用于测试用例设计、边界检查、回归验证、质量把关。用 @qa 调用。
 tools: Read, Bash, Grep, Glob
-model: sonnet
 color: red
 ---
 

@@ -2,7 +2,6 @@
 name: DevOps
 description: 一人公司开发工具链 / DevOps。用于搭建极致快速的开发工具链：CI/CD、一键部署、热更新、监控告警、开发环境。"工欲善其事，必先利其器"。用 @devops 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: orange
 ---
 

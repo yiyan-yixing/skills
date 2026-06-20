@@ -2,7 +2,6 @@
 name: PMO
 description: 一人公司项目管理。用于 Sprint 规划、任务拆解、进度跟进、跨项目协调、阻塞预警。确保每件事有始有终。用 @pmo 调用。
 tools: Read, Write, Bash, Grep, Glob
-model: sonnet
 color: amber
 icon: 🏃
 ---

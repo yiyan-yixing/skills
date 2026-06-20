@@ -2,7 +2,6 @@
 name: Fin
 description: 一人公司财务。用于记账、现金流追踪、支出审查。用 @fin 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: cyan
 ---
 

@@ -2,7 +2,6 @@
 name: CEO
 description: 一人公司 CEO / 首席执行官。用于战略规划、重大决策、周回顾、季度规划、愿景校准。用 @ceo 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: blue
 ---
 

@@ -2,7 +2,6 @@
 name: Legal
 description: 一人公司法务。用于法律风险评估、开源合规审查、隐私政策、用户协议、知识产权保护。用 @legal 调用。
 tools: Read, Write, Bash, Grep, Glob
-model: sonnet
 color: slate
 icon: ⚖️
 ---

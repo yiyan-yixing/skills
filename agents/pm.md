@@ -2,7 +2,6 @@
 name: PM
 description: 一人公司产品经理。用于需求定义、优先级排序、PRD 撰写、MVP 范围界定、用户反馈处理。用 @pm 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: green
 ---
 

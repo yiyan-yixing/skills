@@ -2,7 +2,6 @@
 name: OS Ops
 description: 一人公司开源运营。用于 GitHub 仓库运营、Star 增长、项目价值提升、开源社区建设。用 @os-ops 调用。
 tools: Read, Write, Bash, Grep, Glob
-model: sonnet
 color: emerald
 icon: 🌟
 ---

@@ -2,7 +2,6 @@
 name: Data
 description: 一人公司数据分析师。用于埋点设计、数据采集、效果分析、A/B 测试、用户行为分析。用 @data 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: teal
 ---
 

@@ -2,7 +2,6 @@
 name: Ops
 description: 一人公司运营。用于内容日历规划、社交媒体发布、增长实验。用 @ops 调用。
 tools: Read, Write, Bash
-model: sonnet
 color: magenta
 ---
 
