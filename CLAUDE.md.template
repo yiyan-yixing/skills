@@ -18,3 +18,16 @@
 - 质疑按 `.claude/agents/challenge-protocol.md` 执行
 - 架构决策写入 `.claude/memory/core/architecture.md` 并归档到 `archival/decisions/`
 - 经验教训写入 `.claude/memory/archival/lessons/`
+
+## 技能路由
+
+当用户的请求匹配已有技能时，通过 Skill 工具调用。不确定时，调用技能。
+
+关键路由规则：
+- 全自动产品交付（"发货""上线""一键交付"）→ /auto-ship
+- 需求定义 / PRD 撰写 → @pm
+- 代码开发 / Bug 修复 → @dev
+- 测试质量 / Go-No-Go 判定 → @qa
+- 部署上线 / CI/CD → @devops
+- 架构评审 / 技术选型 → @architect
+- Sprint 规划 / 任务拆解 → @pmo
